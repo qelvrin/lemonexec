@@ -12,3 +12,18 @@
   ],
   "loadstring": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\"))()"
 }
+
+{
+  "name": "Fling All GUI",
+  "description": "fling all, dumbass",
+  "creator": "KILASIK",
+  "version": "Scriptblox",
+  "thumbnail": "https://scriptblox.com/images/script/0-1749408102773.png",
+  "verified": true,
+  "free": true,
+  "keyRequired": false,
+  "games": [
+    "Universal"
+  ],
+  "loadstring": "--[[\n\tWARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!\n]]\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/K1LAS1K/Ultimate-Fling-GUI/main/flingscript.lua\"))()"
+}
