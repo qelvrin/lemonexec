@@ -51,6 +51,7 @@
   .json-key { color: #569cd6; }
   .json-str { color: #ce9178; }
   .json-bool { color: #4fc1ff; }
+  .json-comma { color: #ffffff; font-weight: bold; }
 
   .btn-primary { width: 100%; padding: 14px; background: var(--lemon); color: #000; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; font-family: 'Syne'; text-transform: uppercase; letter-spacing: 1px; }
   .btn-secondary { padding: 8px 12px; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 12px; }
@@ -69,13 +70,13 @@
 
 <div class="panel-left">
   <div class="section-label">Script Info</div>
-  <div class="field"><label>Name</label><input type="text" id="name" placeholder=""></div>
-  <div class="field"><label>Description</label><textarea id="desc" placeholder=""></textarea></div>
+  <div class="field"><label>Name</label><input type="text" id="name" placeholder="Infinite Yield"></div>
+  <div class="field"><label>Description</label><textarea id="desc" placeholder="Description..."></textarea></div>
   <div class="field" style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
-    <div><label>Creator</label><input type="text" id="creator" placeholder=""></div>
-    <div><label>Version</label><input type="text" id="version" placeholder=""></div>
+    <div><label>Creator</label><input type="text" id="creator" placeholder="User"></div>
+    <div><label>Version</label><input type="text" id="version" placeholder="1.0"></div>
   </div>
-  <div class="field"><label>Thumbnail URL</label><input type="url" id="thumb" placeholder=""></div>
+  <div class="field"><label>Thumbnail URL</label><input type="url" id="thumb" placeholder="https://..."></div>
 
   <div class="section-label">Attributes</div>
   <div class="toggles">
@@ -93,27 +94,35 @@
 
   <div class="section-label">Games</div>
   <div class="tags" id="games-list"></div>
-  <div style="display:flex; gap:5px;"><input type="text" id="g-in" placeholder="" onkeydown="if(event.key==='Enter')addGame()"><button class="btn-secondary" onclick="addGame()">+</button></div>
+  <div style="display:flex; gap:5px;"><input type="text" id="g-in" placeholder="Universal" onkeydown="if(event.key==='Enter')addGame()"><button class="btn-secondary" onclick="addGame()">+</button></div>
 
-  <div class="section-label">Execution</div>
+  <div class="section-label">Source</div>
   <div class="field"><label>Loadstring</label><textarea id="loadstring" style="min-height:60px;"></textarea></div>
 
-  <button class="btn-primary" onclick="addScript()">+ Add Script to JSON List</button>
+  <button class="btn-primary" id="add-btn" onclick="addScript()">+ Add to Collection</button>
 </div>
 
 <div class="panel-right">
-  <div class="section-label" style="margin-top:0">Manage Scripts</div>
+  <div class="section-label" style="margin-top:0; display:flex; justify-content:space-between">
+    Manage Scripts
+    <span onclick="clearCollection()" style="color:var(--danger); cursor:pointer; font-size:9px; letter-spacing:1px">CLEAR ALL</span>
+  </div>
   <div class="collection-list" id="col-ui"><div style="padding:20px; color:#444; font-size:12px; text-align:center;">No scripts added.</div></div>
 
   <div class="section-label" style="display:flex; justify-content:space-between">
-    JSON Blocks
+    JSON Objects (Comma Separated)
     <button class="btn-secondary" style="font-size:10px" onclick="copyJSON()">Copy All</button>
   </div>
-  <div class="json-box" id="json-out">// Your objects will appear here without brackets</div>
+  <div class="json-box" id="json-out">// Objects will appear here...</div>
 </div>
 
 <script>
-  let collection = JSON.parse(localStorage.getItem('lemon_col_v3') || '[]');
+  let collection = [];
+  try {
+    const saved = localStorage.getItem('lemon_col_v5');
+    if (saved) collection = JSON.parse(saved);
+  } catch(e) { collection = []; }
+
   let flags = { verified: true, free: true, keyRequired: false, games: [] };
 
   function setFlag(key, val) {
@@ -133,8 +142,11 @@
   }
 
   function addScript() {
+    const nameVal = document.getElementById('name').value.trim();
+    if (!nameVal) { alert("Please enter a script name."); return; }
+
     const obj = {
-      name: document.getElementById('name').value || "Unnamed Script",
+      name: nameVal,
       description: document.getElementById('desc').value,
       creator: document.getElementById('creator').value,
       version: document.getElementById('version').value || "1.0",
@@ -142,9 +154,10 @@
       verified: flags.verified,
       free: flags.free,
       keyRequired: flags.keyRequired,
-      games: [...flags.games],
+      games: flags.games.length > 0 ? [...flags.games] : ["Universal"],
       loadstring: document.getElementById('loadstring').value
     };
+
     collection.push(obj);
     updateUI();
     reset();
@@ -152,32 +165,54 @@
 
   function removeScript(i) { collection.splice(i, 1); updateUI(); }
 
+  function clearCollection() {
+    if(confirm("Delete all scripts in the current list?")) {
+        collection = [];
+        updateUI();
+    }
+  }
+
   function updateUI() {
-    localStorage.setItem('lemon_col_v3', JSON.stringify(collection));
+    localStorage.setItem('lemon_col_v5', JSON.stringify(collection));
     const ui = document.getElementById('col-ui');
     ui.innerHTML = collection.length ? collection.map((s, i) => `<div class="collection-item"><span class="name">${s.name}</span><button onclick="removeScript(${i})">×</button></div>`).join('') : `<div style="padding:20px; color:#444; font-size:12px; text-align:center;">No scripts added.</div>`;
     
     if (collection.length === 0) {
-        document.getElementById('json-out').innerHTML = "// Your objects will appear here without brackets";
+        document.getElementById('json-out').innerHTML = "// Objects will appear here...";
         return;
     }
 
-    // Map each object to its own JSON string and join them with a newline
-    const raw = collection.map(item => JSON.stringify(item, null, 2)).join('\n\n');
+    const formatted = collection.map((item, index) => {
+        let str = JSON.stringify(item, null, 2);
+        if (index < collection.length - 1) str += ",";
+        return str;
+    }).join('\n\n');
     
-    document.getElementById('json-out').innerHTML = raw
+    document.getElementById('json-out').innerHTML = formatted
       .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
       .replace(/: "(.*?)"/g, ': <span class="json-str">"$1"</span>')
-      .replace(/: (true|false)/g, ': <span class="json-bool">$1</span>');
+      .replace(/: (true|false)/g, ': <span class="json-bool">$1</span>')
+      .replace(/},/g, '}<span class="json-comma">,</span>');
   }
 
   function reset() {
-    document.querySelectorAll('input, textarea').forEach(i => i.value = '');
-    flags.games = []; renderGames();
+    document.getElementById('name').value = '';
+    document.getElementById('desc').value = '';
+    document.getElementById('creator').value = '';
+    document.getElementById('version').value = '';
+    document.getElementById('thumb').value = '';
+    document.getElementById('loadstring').value = '';
+    flags.games = []; 
+    renderGames();
   }
 
   function copyJSON() {
-    const raw = collection.map(item => JSON.stringify(item, null, 2)).join('\n\n');
+    if(!collection.length) return;
+    const raw = collection.map((item, index) => {
+        let str = JSON.stringify(item, null, 2);
+        if (index < collection.length - 1) str += ",";
+        return str;
+    }).join('\n\n');
     navigator.clipboard.writeText(raw);
     const btn = event.target; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy All', 1500);
   }
