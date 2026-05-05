@@ -1,12 +1,14 @@
 {
-  "name": "inf yield",
-  "description": "wdwdwdwd",
-  "creator": "wdwd",
-  "version": "1.0.0",
-  "thumbnail": "https://scriptblox.com/images/script/-1-1773267825016.jpg",
+  "name": "Infinite Yield",
+  "description": "fucking scriptblox doesnt have it",
+  "creator": "Proxyshart uploaded this",
+  "version": "6.4",
+  "thumbnail": "https://infyiff.github.io/resources/Logo_Small.png",
   "verified": true,
   "free": true,
   "keyRequired": false,
-  "games": [],
+  "games": [
+    "Universal"
+  ],
   "loadstring": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\"))()"
 }
