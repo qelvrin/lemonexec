@@ -1,14 +1,15 @@
-{
-  "name": "Infinite Yield",
-  "description": "fucking scriptblox doesnt have it",
-  "creator": "Proxyshart uploaded this",
-  "version": "6.4",
-  "thumbnail": "https://infyiff.github.io/resources/Logo_Small.png",
-  "verified": true,
-  "free": true,
-  "keyRequired": false,
-  "games": [
-    "Universal"
-  ],
-  "loadstring": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\"))()"
-}
+[
+  {
+    "name": "Infinite Yield",
+    "description": "fucking scriptblox doesnt have it",
+    "creator": "Proxyshart uploaded this",
+    "version": "6.4",
+    "thumbnail": "https://infyiff.github.io/resources/Logo_Small.png",
+    "verified": true,
+    "free": true,
+    "games": [
+      "Universal"
+    ],
+    "loadstring": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\"))()"
+  }
+]
