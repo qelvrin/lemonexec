@@ -70,13 +70,13 @@
 
 <div class="panel-left">
   <div class="section-label">Script Info</div>
-  <div class="field"><label>Name</label><input type="text" id="name" placeholder="Infinite Yield"></div>
-  <div class="field"><label>Description</label><textarea id="desc" placeholder="Description..."></textarea></div>
+  <div class="field"><label>Name</label><input type="text" id="name" placeholder=""></div>
+  <div class="field"><label>Description</label><textarea id="desc" placeholder=""></textarea></div>
   <div class="field" style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
-    <div><label>Creator</label><input type="text" id="creator" placeholder="User"></div>
-    <div><label>Version</label><input type="text" id="version" placeholder="1.0"></div>
+    <div><label>Creator</label><input type="text" id="creator" placeholder=""></div>
+    <div><label>Version</label><input type="text" id="version" placeholder=""></div>
   </div>
-  <div class="field"><label>Thumbnail URL</label><input type="url" id="thumb" placeholder="https://..."></div>
+  <div class="field"><label>Thumbnail URL</label><input type="url" id="thumb" placeholder=""></div>
 
   <div class="section-label">Attributes</div>
   <div class="toggles">
@@ -94,7 +94,7 @@
 
   <div class="section-label">Games</div>
   <div class="tags" id="games-list"></div>
-  <div style="display:flex; gap:5px;"><input type="text" id="g-in" placeholder="Universal" onkeydown="if(event.key==='Enter')addGame()"><button class="btn-secondary" onclick="addGame()">+</button></div>
+  <div style="display:flex; gap:5px;"><input type="text" id="g-in" placeholder="" onkeydown="if(event.key==='Enter')addGame()"><button class="btn-secondary" onclick="addGame()">+</button></div>
 
   <div class="section-label">Source</div>
   <div class="field"><label>Loadstring</label><textarea id="loadstring" style="min-height:60px;"></textarea></div>
