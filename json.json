@@ -26,4 +26,49 @@
     "Universal"
   ],
   "loadstring": "--[[\n\tWARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!\n]]\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/K1LAS1K/Ultimate-Fling-GUI/main/flingscript.lua\"))()"
+},
+
+{
+  "name": "Orca Nightly",
+  "description": "Orca hub, not the best but not the worst. This is the nightly version btw, so more features :D",
+  "creator": "richie0866",
+  "version": "1.1.1",
+  "thumbnail": "https://repository-images.githubusercontent.com/466870557/341938e6-9c92-4c22-b4bd-d0f01defd07f",
+  "verified": true,
+  "free": true,
+  "keyRequired": false,
+  "games": [
+    "Universal"
+  ],
+  "loadstring": "loadstring(\n  game:HttpGetAsync(\"https://raw.githubusercontent.com/richie0866/orca/master/public/snapshot.lua\")\n)()"
+},
+
+{
+  "name": "Sirius Free",
+  "description": "godly menu, I use it all the time",
+  "creator": "i dont fucking know the creator",
+  "version": "idunno",
+  "thumbnail": "https://sirius.menu/assets/images/png/embedBanner.png",
+  "verified": true,
+  "free": true,
+  "keyRequired": false,
+  "games": [
+    "Universal"
+  ],
+  "loadstring": "loadstring(game:HttpGet('https://sirius.menu/sirius'))()"
+},
+
+{
+  "name": "Unnamed ESP",
+  "description": "fucking esp, dumbass",
+  "creator": "ic3w0lf22",
+  "version": "No releases published",
+  "thumbnail": "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/7/9/f/79f501831d00ba5f6ecbbe43a3eb14b1e8b5be64.png",
+  "verified": true,
+  "free": true,
+  "keyRequired": false,
+  "games": [
+    "Universal"
+  ],
+  "loadstring": "pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua'))() end)"
 }
