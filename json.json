@@ -71,4 +71,19 @@
     "Universal"
   ],
   "loadstring": "pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua'))() end)"
+},
+
+{
+  "name": "FE Invisibility Keybind (Keybind is X btw)",
+  "description": "yea",
+  "creator": "Proxyshart",
+  "version": "1.0",
+  "thumbnail": "https://i.ytimg.com/vi/8mEOTAL3D9w/default.jpg",
+  "verified": true,
+  "free": true,
+  "keyRequired": false,
+  "games": [
+    "Universal"
+  ],
+  "loadstring": "local key = Enum.KeyCode.X -- key to toggle invisibility\n\n--// dont edit script below\nlocal invis_on = false\nfunction onKeyPress(inputObject, chat)\n    if chat then return end\n    if inputObject.KeyCode == key then\n\t    invis_on = not invis_on\n    \tif invis_on then\n            local savedpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame\n            wait()\n            game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-25.95, 84, 3537.55))\n            wait(.15)\n            local Seat = Instance.new('Seat', game.Workspace)\n            Seat.Anchored = false\n            Seat.CanCollide = false\n            Seat.Name = 'invischair'\n            Seat.Transparency = 1\n            Seat.Position = Vector3.new(-25.95, 84, 3537.55)\n            local Weld = Instance.new(\"Weld\", Seat)\n            Weld.Part0 = Seat\n            Weld.Part1 = game.Players.LocalPlayer.Character:FindFirstChild(\"Torso\") or game.Players.LocalPlayer.Character.UpperTorso\n            wait()\n            Seat.CFrame = savedpos\n            game.StarterGui:SetCore(\"SendNotification\", {\n                Title = \"Invis On\";\n                Duration = 1;\n                Text = \"\";\n            })\n        else\n            workspace:FindFirstChild('invischair'):Remove()\n            game.StarterGui:SetCore(\"SendNotification\", {\n                Title = \"Invis Off\";\n                Duration = 1;\n                Text = \"\";\n            })\n        end\n    end\nend\n\ngame:GetService(\"UserInputService\").InputBegan:connect(onKeyPress)"
 }
